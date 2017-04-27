@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{
+			padding:0px;
+			margin:0px;
+		}
+		body{
+			background-color: #ccc;
+		}
+		a{
+			text-decoration: none;
+			color: black;
+		}
+			#video{
+				width: 610px;
+				height: 450px;
+				background-color: #FFFFFF;
+				border-radius: 20px;
+				position: relative;
+				margin: 0px auto;
+				
+			}
+			#video #title{
+				text-align: center;
+				position: absolute;
+				height: 20px;
+				line-height: 20px;
+
+				left: 200px;
+			}
+			#video video{
+				background-color:#aaa;
+				position: absolute;
+				top: 30px;
+			}
+			#video #title #getPic{
+				border: 1px solid black;
+				width: 80px;
+				position: absolute;
+				left: -180px;
+				top: -2px;
+			}
+			#video #open{
+				border: 1px solid black;
+			/*	width: 80px;*/
+				position: absolute;
+				left: 10px;
+				top: 420px;
+			}
+			#myCanvas{
+				border: 1px solid seashell;
+				/*background-color: #FFFFFF;*/
+				position: absolute;
+				left: 420px;
+				border-radius: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="video">
+			<div id="title">
+				<span id="">
+					
+				
+					indeex live video
+				</span>
+				<span id="getPic">
+					<a	href="javascript:;">截图</a>
+				</span>
+			</div>
+			<video width="610" height="380" id="myVideo" autoplay="">
+				您的浏览器不支持video！
+			</video>
+			<div id="open">
+				<a href="javascript:openCamera();">打开摄像头</a>
+			</div>
+		</div>
+		<canvas id="myCanvas" width="610" height="450">
+			您的浏览器不支持canvas
+		</canvas>
+		<script type="text/javascript">
+			var myVideo=document.getElementById("myVideo");
+			var myCanvas=document.getElementById("myCanvas");
+			var ctx=myCanvas.getContext("2d");
+			
+			
+			 var camera= window.navigator.getUserMedia||
+			window.navigator.mozGetUserMedia||
+			window.navigator.webkitGetUserMedia||
+			window.navigator.msGetUserMedia;
+			
+			function openCamera(){
+				if (window.navigator.getUserMedia) {
+					window.navigator.getUserMedia({
+						"video":true,
+						"audio":true
+					},successFun,errorFun);
+					
+				} else{
+					alert("你的浏览器不支持开启摄像头！");
+				}
+			}
+			
+			
+			
+			
+			window.URL=window.URL ||
+			window.mozURL||
+			window.webkitURL||
+			window.msRUL;
+			function successFun(stream){
+				if (myVideo.mozSrcObject!==undefined) {
+					myVideo.mozSrcObject=stream;
+				}else{
+					myVideo.src=window.URL?window.URL.createObjectURL(stream):stream;
+					
+				}
+			}
+			function errorFun(err){
+				alert(err);
+			}
+			function getPicture(){
+				ctx.drawImage(myVideo,0,0);
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</body>
+</html>
